@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Career Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Your Resume</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="resume" accept=".pdf,.docx" required>
+            <input type="submit" value="Predict Career">
+        </form>
+
+        {% if prediction %}
+        <div class="prediction">
+            <h2>Predicted Career: <span>{{ prediction }}</span></h2>
+            <h3>Skill Match Scores:</h3>
+            <table class="score-table">
+                <tr>
+                    <th>Career</th>
+                    <th>Score (%)</th>
+                </tr>
+                {% for career, score in scores.items() %}
+                <tr>
+                    <td>{{ career }}</td>
+                    <td>{{ score }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
